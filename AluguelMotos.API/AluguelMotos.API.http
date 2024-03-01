@@ -1,0 +1,15 @@
+@AluguelMotos.API_HostAddress = http://localhost:5058
+
+GET {{AluguelMotos.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+POST {{AluguelMotos.API_HostAddress}}/entregadores
+Content-Type: application/json
+
+{
+  //CreateEntregadorCommand
+}
+
+###
