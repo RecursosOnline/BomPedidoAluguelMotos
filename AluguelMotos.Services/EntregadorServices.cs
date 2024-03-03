@@ -1,5 +1,5 @@
 ﻿using AluguelMotos.Infraestructure.Exceptions;
-using AluguelMotos.Infraestructure.Interfaces;
+using AluguelMotos.Infraestructure.Interfaces.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 

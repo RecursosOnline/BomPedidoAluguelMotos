@@ -12,11 +12,3 @@ public class ExceptionBase : Exception
     {
     }
 }
-
-public class InvalidImageFormatException : ExceptionBase
-{
-    public InvalidImageFormatException(string message) : base(message)
-    {
-
-    }
-}

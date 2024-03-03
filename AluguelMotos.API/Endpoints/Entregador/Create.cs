@@ -1,5 +1,5 @@
 ﻿using AluguelMotos.Infraestructure.Exceptions;
-using AluguelMotos.Infraestructure.Interfaces;
+using AluguelMotos.Infraestructure.Interfaces.Services;
 using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

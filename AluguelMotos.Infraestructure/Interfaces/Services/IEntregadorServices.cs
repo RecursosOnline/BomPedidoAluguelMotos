@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace AluguelMotos.Infraestructure.Interfaces;
+namespace AluguelMotos.Infraestructure.Interfaces.Services;
 
 public interface IEntregadorServices
 {

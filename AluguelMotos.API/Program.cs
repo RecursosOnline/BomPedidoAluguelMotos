@@ -9,6 +9,7 @@ builder.Services.AddSwaggerGen(c => {
     c.EnableAnnotations();
 });
 builder.Services.AddEntregadorServices();
+
 builder.Services.AddControllers(options =>
 {
     options.UseNamespaceRouteToken();

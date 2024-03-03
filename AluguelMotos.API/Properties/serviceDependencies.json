@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "rabbitmq1": {
+      "type": "rabbitmq",
+      "connectionId": "rabbitmq",
+      "dynamicId": null
+    },
+    "postgresql1": {
+      "type": "postgresql",
+      "connectionId": "postgresql_cn",
+      "dynamicId": null
+    }
+  }
+}
