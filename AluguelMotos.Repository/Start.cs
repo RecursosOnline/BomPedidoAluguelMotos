@@ -14,12 +14,21 @@ internal class Start
     {
        
         public DbSet<Entregador> Entregadores { get; set; }
+        public DbSet<Moto> Motos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Configuração da conexão com o banco de dados PostgreSQL
-            optionsBuilder.UseNpgsql("your_connection_string_here");
+            optionsBuilder.UseNpgsql("postgresql");
         }
     }
 }
 public record Entregador(Guid EntregadorId, string Nome, string CNH, string CNPJ, ModeloCNH ModeloCNH, DateOnly DataNascimento);
+/// <summary>
+/// 
+/// </summary>
+/// <param name="MotoId"></param>
+/// <param name="Placa"></param>
+/// <param name="Renavan"></param>
+/// <param name="IsBlocked"></param>
+public record Moto(Guid MotoId, string Placa, string Renavan, bool IsBlocked = false);

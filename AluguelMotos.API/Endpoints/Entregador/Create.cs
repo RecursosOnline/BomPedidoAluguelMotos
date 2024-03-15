@@ -25,6 +25,6 @@ public class Create(ILogger<Create> _logger, IEntregadorServices _entregadorServ
             throw new Exception(ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToString());
         }
 
-        return await _entregadorServices.CreateAsync(request);
+        return await _entregadorServices.CreateAsync(request, cancellationToken);
     }
 }

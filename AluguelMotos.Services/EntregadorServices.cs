@@ -1,20 +1,23 @@
 ﻿using AluguelMotos.Infraestructure.Exceptions;
+using AluguelMotos.Infraestructure.Interfaces.Repositories;
 using AluguelMotos.Infraestructure.Interfaces.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace AluguelMotos.Services;
 
-public class EntregadorServices(ILogger<EntregadorServices> logger) : IEntregadorServices
+public class EntregadorServices(ILogger<EntregadorServices> logger, IEntregadorRepository entregadorRepository) : IEntregadorServices
 {
-    public async Task<CreateEntregadorResult> CreateAsync(CreateEntregadorCommand request)
+    public async Task<CreateEntregadorResult> CreateAsync(CreateEntregadorCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("EntregadorServices::CreateAsync");
-        //TODO: Salvar o entregador no banco de dados
-        return new CreateEntregadorResult{ EntregadorId = Guid.NewGuid()};
+
+        await entregadorRepository.CreateAsync(request, cancellationToken);
+
+        return new CreateEntregadorResult { EntregadorId = Guid.NewGuid() };
     }
 
-    public async Task UpdateImagemCnhAsync(UpdateImagemCnhCommand request, CancellationToken cancellationToken)
+    public async Task<UpdateImagemCnhResult> UpdateImagemCnhAsync(UpdateImagemCnhCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("EntregadorServices::UpdateImagemCnhAsync:EntregadorId:{entregadorId}", request.EntregadorId);
         var IsBMP = request.ImagemCNH.FileName.EndsWith("bmp", StringComparison.CurrentCultureIgnoreCase);
@@ -29,9 +32,11 @@ public class EntregadorServices(ILogger<EntregadorServices> logger) : IEntregado
         {
             await request.ImagemCNH.CopyToAsync(fileStream, cancellationToken);
         }
-        //TODO: Atualizar o caminho da imagem no banco de dados
-        
+
+        return await entregadorRepository.UpdateImagemCnhAsync(request, cancellationToken);
+
     }
+
 }
 
 public static class Extensions
