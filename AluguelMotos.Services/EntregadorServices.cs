@@ -1,6 +1,7 @@
 ﻿using AluguelMotos.Infraestructure.Exceptions;
 using AluguelMotos.Infraestructure.Interfaces.Repositories;
 using AluguelMotos.Infraestructure.Interfaces.Services;
+using AluguelMotos.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -17,7 +18,7 @@ public class EntregadorServices(ILogger<EntregadorServices> logger, IEntregadorR
         return new CreateEntregadorResult { EntregadorId = Guid.NewGuid() };
     }
 
-    public async Task<UpdateImagemCnhResult> UpdateImagemCnhAsync(UpdateImagemCnhCommand request, CancellationToken cancellationToken)
+    public async Task<UpdateImagemCnhResult> UpdateImagemCnhAsync(UploadImagemCnhCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("EntregadorServices::UpdateImagemCnhAsync:EntregadorId:{entregadorId}", request.EntregadorId);
         var IsBMP = request.ImagemCNH.FileName.EndsWith("bmp", StringComparison.CurrentCultureIgnoreCase);
@@ -33,7 +34,8 @@ public class EntregadorServices(ILogger<EntregadorServices> logger, IEntregadorR
             await request.ImagemCNH.CopyToAsync(fileStream, cancellationToken);
         }
 
-        return await entregadorRepository.UpdateImagemCnhAsync(request, cancellationToken);
+        return await entregadorRepository.UpdateImagemCnhAsync(new UpdateImagemCnhCommand(
+            EntregadorId: request.EntregadorId, ImagemCNH: filePath), cancellationToken);
 
     }
 
@@ -43,6 +45,7 @@ public static class Extensions
 {
     public static void AddEntregadorServices(this IServiceCollection serviceCollection)
     {
+        serviceCollection.AddTransient<IEntregadorRepository, EntregadorRepository>();
         serviceCollection.AddTransient<IEntregadorServices, EntregadorServices>();
     }
 }

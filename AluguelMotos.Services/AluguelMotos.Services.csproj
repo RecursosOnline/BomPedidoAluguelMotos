@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AluguelMotos.Infraestructure\AluguelMotos.Infraestructure.csproj" />
+    <ProjectReference Include="..\AluguelMotos.Repository\AluguelMotos.Repository.csproj" />
   </ItemGroup>
 
 </Project>

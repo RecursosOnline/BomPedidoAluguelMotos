@@ -6,8 +6,8 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace AluguelMotos.API.Endpoints.Entregador;
 
 public class PhotoUpdate(ILogger<PhotoUpdate> _logger, IEntregadorServices _entregadorServices) : EndpointBaseAsync
-    .WithRequest<UpdateImagemCnhCommand>
-    .WithResult<ActionResult<string[]>>
+    .WithRequest<UploadImagemCnhCommand>
+    .WithResult<ActionResult<UpdateImagemCnhResult>>
 {
 
     [HttpPost("/entregadores/cnhimagem")]
@@ -17,18 +17,12 @@ public class PhotoUpdate(ILogger<PhotoUpdate> _logger, IEntregadorServices _entr
         OperationId = "Entregador_CnhImagemUpdate",
         Tags = new[] { "EntregadorEndpoint" })
     ]
-    public override async Task<ActionResult<string[]>> HandleAsync(UpdateImagemCnhCommand request, CancellationToken cancellationToken = default)
+    public override async Task<ActionResult<UpdateImagemCnhResult>> HandleAsync(UploadImagemCnhCommand request, CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("PhotoUpdate::HandleAsync");
 
-        await _entregadorServices.UpdateImagemCnhAsync(request, cancellationToken);
+        var result = await _entregadorServices.UpdateImagemCnhAsync(request, cancellationToken);
 
-        return new[]
-        {
-            request.ImagemCNH.FileName,
-            request.ImagemCNH.ContentType,
-            request.ImagemCNH.ContentDisposition,
-            request.ImagemCNH.Length.ToString()
-        };
+        return result;
     }
 }

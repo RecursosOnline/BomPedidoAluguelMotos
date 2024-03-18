@@ -6,7 +6,7 @@ namespace AluguelMotos.Infraestructure.Interfaces.Services;
 public interface IEntregadorServices
 {
     Task<CreateEntregadorResult> CreateAsync(CreateEntregadorCommand request, CancellationToken cancellationToken);
-    Task<UpdateImagemCnhResult> UpdateImagemCnhAsync(UpdateImagemCnhCommand request, CancellationToken cancellationToken);
+    Task<UpdateImagemCnhResult> UpdateImagemCnhAsync(UploadImagemCnhCommand request, CancellationToken cancellationToken);    
 }
 //TODO: Separar as classes e enumns em arquivos diferentes
 public enum ModeloCNH
@@ -32,10 +32,11 @@ public class CreateEntregadorResult
 {
     public Guid EntregadorId { get; set; }
 }
-
-public class UpdateImagemCnhCommand
+public record QueryEntregadorResult(Guid EntregadorId, string Nome, string CNH, string CNPJ, ModeloCNH ModeloCNH, DateOnly DataNascimento);
+public class UploadImagemCnhCommand
 {
     [Required] public Guid EntregadorId { get; set; }
     [Required] public IFormFile ImagemCNH { get; set; } = null!;
 }
+public record UpdateImagemCnhCommand(Guid EntregadorId, string ImagemCNH);
 public record UpdateImagemCnhResult(string Info);

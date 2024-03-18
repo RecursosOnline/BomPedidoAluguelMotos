@@ -1,3 +1,4 @@
+using AluguelMotos.Repository;
 using AluguelMotos.Services;
 using Microsoft.OpenApi.Models;
 
@@ -8,6 +9,7 @@ builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Aluguel de Motos API", Version = "v1" });
     c.EnableAnnotations();
 });
+builder.Services.AddDbContext<AluguelMotosContext>();
 builder.Services.AddEntregadorServices();
 
 builder.Services.AddControllers(options =>
